@@ -11,3 +11,20 @@
 12:40:51 web.1     |     at process.startup.processNextTick.process._tickCallback (node.js:244:9)
 12:40:51 web.1     | process terminated
 12:40:51 system    | sending SIGTERM to all processes
+/usr/local/foreman/lib/foreman/engine.rb:164:in `synchronize': can't be called from trap context (ThreadError)
+	from /usr/local/foreman/lib/foreman/engine.rb:164:in `puts'
+	from /usr/local/foreman/lib/foreman/engine.rb:38:in `block in start'
+	from /usr/local/foreman/lib/foreman/engine.rb:141:in `call'
+	from /usr/local/foreman/lib/foreman/engine.rb:141:in `wait2'
+	from /usr/local/foreman/lib/foreman/engine.rb:141:in `watch_for_termination'
+	from /usr/local/foreman/lib/foreman/engine.rb:43:in `start'
+	from /usr/local/foreman/lib/foreman/cli.rb:33:in `start'
+	from /usr/local/foreman/vendor/gems/thor-0.14.6/lib/thor/task.rb:22:in `run'
+	from /usr/local/foreman/vendor/gems/thor-0.14.6/lib/thor/invocation.rb:118:in `invoke_task'
+	from /usr/local/foreman/vendor/gems/thor-0.14.6/lib/thor.rb:263:in `dispatch'
+	from /usr/local/foreman/vendor/gems/thor-0.14.6/lib/thor/base.rb:389:in `start'
+	from /usr/bin/foreman:15:in `<main>'
+]0;FlyNFight - foreman14:59:10 web.1     | started with pid 72017
+14:59:10 web.1     | http server listening on 5000
+14:59:10 web.1     | websocket server created
+]0;FlyNFight - foreman

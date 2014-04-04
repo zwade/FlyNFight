@@ -19,14 +19,32 @@ init = function() {
     can.add(env.players[0]);
     can.renderAll();
     
-    ws = new WebSocket("ws://localhost:8080");
+    ws = new WebSocket("ws://localhost:5000");
     ws.onopen = function() {
-        ws.send("hello!");
+	ws.send("req nam");
     }
-    ws.onmessage = function(data) {
-        var cmds = data.split(" ");
-        if (cmds[0] == "reg") {
-            ws.send("ass uid 1");
-        }
+    ws.onmessage = function(msg) {
+    	if (!msg) {
+		return
+	}
+    	data = msg.data.split(" ");
+	cmd = data[0]
+	arg = data[1];
+	
+	dat = "";
+	for (var i = 2; i < data.length-1; i++) {
+		data += data[i]+" "
+	}
+	dat += data[data.length-1]
+
+	switch (cmd) {
+		case "set":
+			if (arg == "uid") {
+				env.UID = dat
+			}
+			return
+	}
+	
+	
     }
 }

@@ -65,6 +65,33 @@ var handleMessage = function(ws, data) {
 	dat += msg[msg.length-1];
 	
 	switch (cmd) {
+		case "reg":
+			switch (arg) {
+				case "host":
+					ws.isHost = true;
+					ws.clients = [];
+					ws.send("inf log 101")
+					return
+				case "client":
+					ws.isHost = false;
+					ws.host = null;
+					ws.send("inf log 101")
+					return
+				ws.send("inf err 200");
+				return
+			}
+			ws.send("inf err 200");
+			return
+		case "use":
+			if (conns[arg] && conns[arg].isHost && conns[arg].clients.length <= 4) {
+				ws.host = conns[arg];
+				conns[arg].clients.push(ws);
+				ws.send("inf log 101")
+			} else {
+				ws.send("inf err 204")
+			}
+			return;
+
 		case "tel":
 			if (conns[arg]) {
 				conns[arg].send("frm "+ws.UID+" "+dat)
@@ -84,16 +111,6 @@ var handleMessage = function(ws, data) {
 
 		case "req":
 			switch (arg) {
-				case "uid":
-					if (conns[dat]) {
-						ws.send("inf err 202")
-						return
-					}
-					delete conns[ws.UID]
-					ws.UID = dat
-					conns[dat] = ws
-					ws.send("set uid "+dat);
-					return
 				case "nam":
 					var name = genName();
 					while (true) {
