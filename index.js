@@ -108,6 +108,8 @@ var handleMessage = function(ws, data) {
 			}
 			ws.send("inf log 101")
 			return
+		case "echo":
+			ws.send(arg)
 
 		case "req":
 			switch (arg) {
