@@ -47,4 +47,14 @@
 16:03:38 web.1     | websocket connection close
 16:03:38 web.1     | websocket connection open
 18:53:29 web.1     | websocket connection open
+]0;FlyNFight - foreman18:54:08 web.1     | started with pid 74907
+18:54:08 web.1     | http server listening on 5000
+18:54:08 web.1     | websocket server created
+18:54:11 web.1     | websocket connection open
+18:59:14 web.1     | websocket connection close
+19:24:03 web.1     | websocket connection open
+]0;FlyNFight - foreman19:24:50 web.1     | started with pid 75101
+19:24:50 web.1     | http server listening on 5000
+19:24:50 web.1     | websocket server created
+19:24:51 web.1     | websocket connection open
 ]0;FlyNFight - foreman

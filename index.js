@@ -41,6 +41,7 @@ wss.on('connection', function(ws) {
 	}
 
 	ws.on('message', function(data) {
+		handleMessage(ws,data);
 	})
 	
 
