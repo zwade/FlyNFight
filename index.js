@@ -65,6 +65,9 @@ var handleMessage = function(ws, data) {
 	dat += msg[msg.length-1];
 	
 	switch (cmd) {
+		case "hrt":
+			console.log("received heartbeat from "+ws.UID);
+			return
 		case "reg":
 			switch (arg) {
 				case "host":
