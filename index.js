@@ -15,6 +15,9 @@ console.log('websocket server created');
 
 var conns = {}
 
+var hosts = {};
+var clients = {};
+
 var genUID = function() {
 	var text = "";
 	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -37,7 +40,7 @@ wss.on('connection', function(ws) {
 		var uid = genUID();
 		ws.UID = uid;
 		conns[uid] = ws;
-		ws.send("set uid "+uid);
+		ws.send("uid set "+uid);
 	}
 
 	ws.on('message', function(data) {
@@ -49,6 +52,14 @@ wss.on('connection', function(ws) {
 	ws.on('close', function() {
 		console.log('websocket connection close');
 		delete conns[ws.UID]
+		if (ws.host && hosts[ws.host]) {
+			hosts[ws.host].send("brk "+ws.UID);
+		}
+		if (ws.isHost===true) {
+			delete hosts[ws.UID];
+		} else if (ws.isHost===false) {
+			delete clients[ws.UID];
+		}
 	});
 });
 
@@ -56,81 +67,100 @@ var handleMessage = function(ws, data) {
 	data = data.toString();
 	var msg = data.split(" ");
 	var cmd = msg[0];
-	var arg = msg[1];
+	var tag = msg[1];
 
 	var  dat = "";
 	for (i = 2; i < msg.length-1; i++) {
 		dat += msg[i]+" "
 	}
 	dat += msg[msg.length-1];
+	if (cmd != "hrt") {
+		console.log("Received: "+data+" from: "+ws.UID);
+	}
 	
 	switch (cmd) {
 		case "hrt":
 			console.log("received heartbeat from "+ws.UID);
-			return
+			break
 		case "reg":
-			switch (arg) {
-				case "host":
-					ws.isHost = true;
-					ws.clients = [];
-					ws.send("inf log 101")
-					return
-				case "client":
-					ws.isHost = false;
-					ws.host = null;
-					ws.send("inf log 101")
-					return
-				ws.send("inf err 200");
-				return
-			}
-			ws.send("inf err 200");
-			return
-		case "use":
-			if (conns[arg] && conns[arg].isHost && conns[arg].clients.length <= 4) {
-				ws.host = conns[arg];
-				conns[arg].clients.push(ws);
-				ws.send("inf log 101")
+			if (dat == "host") {
+				ws.isHost = true;
+				ws.clients = [];
+				ws.send("inf "+tag+" 101")
+				hosts[ws.UID] = ws;
+				break
+			} else if (dat == "client") {
+				ws.isHost = false;
+				ws.host = null;
+				ws.send("inf "+tag+" 101")
+				clients[ws.UID] = ws;
+				break
 			} else {
-				ws.send("inf err 204")
+				ws.send("inf "+tag+" 200");
+				break
 			}
-			return;
-
+		case "nam":
+			var name = genName();
+			while (true) {
+				if (!conns[name]) {
+					break;
+				}
+				name = genName();
+			}
+			delete conns[ws.UID];
+			conns[name] = ws;
+			if (hosts[ws.UID]) {
+				delete hosts[ws.UID];
+				hosts[name] = ws
+			} else if (clients[ws.UID]) {
+				delete clients[ws.UID];
+				hosts[name] = ws;
+			}
+			ws.UID = name;
+			ws.send("uid set "+ws.UID)
+			break;
+			
+		case "req":
+			if (hosts[dat]) {
+				hosts[dat].send("req "+ws.UID+" "+dat);
+			} else {
+				ws.send("acc "+tag+" false")
+			}
+			break
+		case "acc":
+			if (dat == "true") {
+				console.log(tag)
+				if (clients[tag]) {
+					hosts[ws.UID].clients.push(clients[tag])
+					clients[tag].send("acc "+tag+" true");
+					clients[tag].host = ws.UID;
+				}
+			} else {
+				clients[tag].send("acc "+tag+" false");
+			}
+			break;
 		case "tel":
-			if (conns[arg]) {
-				conns[arg].send("frm "+ws.UID+" "+dat)
+			if (conns[tag]) {
+				conns[tag].send("frm "+ws.UID+" "+dat)
 				ws.send("inf log 101")
 			} else {
 				ws.send("inf err 201")
 			}
-			return
+			break
 		case "prt":
-			if (! arg) {
-				console.log(conns);
+			if (! tag) {
+				console.log("Conns:")
+				for (i in conns) {
+					console.log("    "+i);
+				}
 			} else {
-				console.log(arg+" "+dat);
+				console.log(tag+" "+dat);
 			}
 			ws.send("inf log 101")
-			return
-		case "echo":
-			ws.send(arg)
+			break
+		case "ech":
+			ws.send("ech "+tag)
+			
 
-		case "req":
-			switch (arg) {
-				case "nam":
-					var name = genName();
-					while (true) {
-						if (!conns[name]) {
-							break;
-						}
-						name = genName();
-					}
-					delete conns[ws.UID]
-					ws.UID = name;
-					conns[name] = ws;
-					ws.send("set uid "+name);
-					return;
-
-			}
-			return
 	}
 }

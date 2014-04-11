@@ -12,6 +12,7 @@ $(window).load(function() {
 	$("#wssub").click(function(e) {
 		connectMe();
 	})
+	return
 	ws = new WebSocket("ws://localhost:5000")
 	ws.onopen = function() {
 		ws.send("tel svr phone");
