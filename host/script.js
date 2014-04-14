@@ -20,15 +20,27 @@ init = function() {
 	can.add(env.players[0]);
 	can.renderAll();
 
-	PSS = new PSServer();
+	PSS = new PSServer("ws://localhost:5000");
+
+	PSS.onName = function(name) {
+		console.log("My Name Is "+name);
+	}
 
 	PSS.onConnect = function(PSC) {
 		console.log(PSC.UID+" opened");
 		PSC.onData = function(data) {
 			console.log(PSC.UID+" received "+data);
+			var msg = data.split(" ");
+			if (msg[0] == "echo") {
+				PSC.send(msg[1]);
+			}
 		}
 		PSC.onClose = function() {
 			console.log(PSC.UID+" disconnected");
+		}
+		PSC.onQuestion = function(q,cb) {
+			console.log(q);
+			cb("sure");
 		}
 	}
 
