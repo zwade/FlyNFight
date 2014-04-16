@@ -20,10 +20,10 @@ init = function() {
 	can.add(env.players[0]);
 	can.renderAll();
 
-	PSS = new PSServer("ws://localhost:5000");
+	PSS = new PSServer("ws://pilotdcrelay.herokuapp.com");
 
 	PSS.onName = function(name) {
-		console.log("My Name Is "+name);
+		$("#uid").text(name);
 	}
 
 	PSS.onConnect = function(PSC) {
