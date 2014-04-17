@@ -2,6 +2,8 @@ var ws;
 var env = {};
 var requestReturn;
 
+var PSC
+
 
 $(window).load(function() {
 	$("#wsaddr").keydown(function(e) {
@@ -16,10 +18,10 @@ $(window).load(function() {
 })
 
 var connectMe = function() {
-	/**var PSC = new PSClient("ws://localhost:5000",$("#wsaddr").val())
+	PSC = new PSClient("ws://localhost:5000",$("#wsaddr").val())
 	PSC.onOpen = function() {
 		console.log("open");
 	}
-	**/
+	
 
 }
