@@ -18,10 +18,11 @@ $(window).load(function() {
 })
 
 var connectMe = function() {
-	PSC = new PSClient("ws://192.168.2.151:5000",$("#wsaddr").val())
+	PSC = new PSClient("ws://localhost:5000",$("#wsaddr").val()) //192.168.2.151
 	PSC.onOpen = function() {
 		console.log("open");
 		$("#input").css("display","none");
+		PSC.send("mov 100 7*Math.pi/4");
 	}
 	PSC.onClose = function() {
 		$("#input").css("display","none");

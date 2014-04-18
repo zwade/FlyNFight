@@ -32,14 +32,15 @@ init = function() {
 			console.log(PSC.UID+" received "+data);
 			var msg = data.split(" ");
 			if (msg[0] == 'mov') {
-				env.players[0].animate('left', '+=msg[1]*Math.cos(msg[2])' , {
-					duration:100, //100 ms
+				console.log("Moved"+parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))+"left"+parseInt(msg[1],10)*Math.sin(parseInt(msg[2],10))+"up");
+				env.players[0].animate('left', '+='+(parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))) , {
+					duration:1000, //1000 ms
 					onChange: can.renderAll.bind(can), 
-				}
-				env.players[0].animate('top', '+=msg[1]*Math.sin(msg[2])' , {
-					duration:100,
+				})
+				env.players[0].animate('top', '+='+(parseInt(msg[1],10)*Math.sin(parseInt(msg[2],10))) , {
+					duration:1000,
 					onChange: can.renderAll.bind(can),
-				}
+				})
 				//env.players[0].left+=msg[1]*Math.cos(msg[2]);
 				//env.players[0].top+=msg[1]*Math.sin(msg[2]);
 				//can.renderAll();
