@@ -31,21 +31,18 @@ init = function() {
 		PSC.onData = function(data) {
 			console.log(PSC.UID+" received "+data);
 			var msg = data.split(" ");
-			if (msg[0] == "left") {
-				env.players[0].left-=10;
-				can.renderAll();
-			}
-			if (msg[0] == "right") {
-				env.players[0].left+=10;
-				can.renderAll();
-			}
-			if (msg[0] == "up") {
-				env.players[0].top-=10;
-				can.renderAll();
-			}
-			if (msg[0] == "down") {
-				env.players[0].top+=10;
-				can.renderAll();
+			if (msg[0] == 'mov') {
+				env.players[0].animate('left', '+=msg[1]*Math.cos(msg[2])' , {
+					duration:100, //100 ms
+					onChange: can.renderAll.bind(can), 
+				}
+				env.players[0].animate('top', '+=msg[1]*Math.sin(msg[2])' , {
+					duration:100,
+					onChange: can.renderAll.bind(can),
+				}
+				//env.players[0].left+=msg[1]*Math.cos(msg[2]);
+				//env.players[0].top+=msg[1]*Math.sin(msg[2]);
+				//can.renderAll();
 			}
 		}
 		PSC.onClose = function() {
