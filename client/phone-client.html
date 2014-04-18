@@ -9,12 +9,26 @@
 <script src="lib/fabric.min.js"></script>
 <script src="PseudoSocket/PseudoSocketClient.js"></script>
 <script src="client/scriptphone.js"></script>
+<script src="client/Joystick.js"></script>
 <style>
+	#but-cont {
+		display: none;
+	}
 
 </style>
 </head>
 <body>
-    <input type="text" id = "wsaddr"></input>
-    <input type="button" value="Connect" id = "wssub"></input>
+	
+	<div id="input">
+		<input type="text" id = "wsaddr"></input>
+		<input type="button" value="Connect" id = "wssub"></input>
+	</div>
+	<div id="but-cont">
+		<button id="left">Left</button>
+		<button id="right">Right</button>
+		<button id="up">Up</button>
+		<button id="down">Down</button>
+	</div>
+
 </body>
 </html>

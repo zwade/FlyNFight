@@ -31,8 +31,21 @@ init = function() {
 		PSC.onData = function(data) {
 			console.log(PSC.UID+" received "+data);
 			var msg = data.split(" ");
-			if (msg[0] == "echo") {
-				PSC.send(msg[1]);
+			if (msg[0] == "left") {
+				env.players[0].left-=10;
+				can.renderAll();
+			}
+			if (msg[0] == "right") {
+				env.players[0].left+=10;
+				can.renderAll();
+			}
+			if (msg[0] == "up") {
+				env.players[0].top-=10;
+				can.renderAll();
+			}
+			if (msg[0] == "down") {
+				env.players[0].top+=10;
+				can.renderAll();
 			}
 		}
 		PSC.onClose = function() {
