@@ -9,6 +9,13 @@ Joystick = function(r) {
 		console.log(tha)
 		tha.create(e.clientX,e.clientY);
 	})
+	$(document).mouseup(function(e) {
+		console.log(e);
+		console.log("GOODBYE",tha)
+		$("#joy-base").remove();
+  		$("#joy-trig").remove();
+		
+	})
 }
 
 Joystick.prototype.create = function(x,y) {
