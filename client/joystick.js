@@ -4,18 +4,18 @@ Joystick = function(r) {
 	var tha = this;
 	tmp = tha
 	console.log(tha)
-	$(document).mousedown(function(e) {
+	$(document).on("vmousedown",function(e) {
 		console.log(e);
 		console.log(tha)
 		tha.create(e.clientX,e.clientY);
 	})
-	$(document).mouseup(function(e) {
-		console.log(e);
-		console.log("GOODBYE",tha)
+	$(document).on("vmouseup",function(e) {
 		$("#joy-base").remove();
   		$("#joy-trig").remove();
 		
 	})
+	$.vmouse.moveDistanceThreshold = "1000px"
+	$.vmouse.resetTimerDuration = "100000ms"
 }
 
 Joystick.prototype.create = function(x,y) {
@@ -25,4 +25,7 @@ Joystick.prototype.create = function(x,y) {
 	this.base.appendTo($(document.body));
 	this.trig.appendTo($(document.body));
 }
+
+new Joystick(50);
+
 
