@@ -31,21 +31,19 @@ init = function() {
 		PSC.onData = function(data) {
 			console.log(PSC.UID+" received "+data);
 			var msg = data.split(" ");
-			if (msg[0] == "left") {
-				env.players[0].left-=10;
-				can.renderAll();
-			}
-			if (msg[0] == "right") {
-				env.players[0].left+=10;
-				can.renderAll();
-			}
-			if (msg[0] == "up") {
-				env.players[0].top-=10;
-				can.renderAll();
-			}
-			if (msg[0] == "down") {
-				env.players[0].top+=10;
-				can.renderAll();
+			if (msg[0] == 'mov') {
+				console.log("Moved"+parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))+"left"+parseInt(msg[1],10)*Math.sin(parseInt(msg[2],10))+"up");
+				env.players[0].animate('left', '+='+(parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))) , {
+					duration:1000, //1000 ms
+					onChange: can.renderAll.bind(can), 
+				})
+				env.players[0].animate('top', '+='+(parseInt(msg[1],10)*Math.sin(parseInt(msg[2],10))) , {
+					duration:1000,
+					onChange: can.renderAll.bind(can),
+				})
+				//env.players[0].left+=msg[1]*Math.cos(msg[2]);
+				//env.players[0].top+=msg[1]*Math.sin(msg[2]);
+				//can.renderAll();
 			}
 		}
 		PSC.onClose = function() {
