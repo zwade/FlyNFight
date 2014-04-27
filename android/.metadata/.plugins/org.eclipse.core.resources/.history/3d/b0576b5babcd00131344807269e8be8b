@@ -1,0 +1,7 @@
+package me.zwad3.pseudosockettest;
+
+import PseudoSocketCallback;
+
+public class MyCallback extends PseudoSocketCallback {
+
+}

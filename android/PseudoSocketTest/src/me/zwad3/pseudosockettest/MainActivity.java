@@ -3,6 +3,7 @@ package me.zwad3.pseudosockettest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import com.zwad3.PseudoSocket.PseudoSocketCallback;
 import com.zwad3.PseudoSocket.PseudoSocketClient;
 
 import android.app.Activity;
@@ -30,7 +31,7 @@ public class MainActivity extends Activity {
 		}
 		
 		try {
-			PseudoSocketClient pss = new PseudoSocketClient(new URI("ws://192.168.2.151:1234"));
+			PseudoSocketClient pss = new PseudoSocketClient(new URI("ws://192.168.2.151:5000"), "green-bunny", new MyCallback());
 			pss.connect();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block

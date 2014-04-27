@@ -1,0 +1,10 @@
+package com.zwad3.PseudoSocket;
+
+public class Question {
+	public void   response(String response) {
+
+	}
+	public String question() {
+		return "";
+	}
+}

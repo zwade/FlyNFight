@@ -1,0 +1,24 @@
+package com.zwad3.PseudoSocket;
+
+public class PseudoSocketCallback {
+	
+	
+	
+	public void onConnectionFailure() {
+		
+	}
+	public void onOpen() {
+		
+	}
+	public void onClose() {
+		
+	}
+	public void onName() {
+		
+	}
+	public void onQuestion() {
+		
+	}
+	
+	
+}
