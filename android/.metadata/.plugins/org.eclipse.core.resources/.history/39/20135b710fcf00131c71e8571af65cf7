@@ -26,7 +26,7 @@ public class MyCallback extends PseudoSocketCallback {
 		}
 		Intent intent = new Intent(parent, DataSender.class);
 		parent.startActivity(intent);
-		((MyApplication)parent.getApplication()).registerPSC(this);	
+		((MyApplication)parent.getApplication()).
 	
 	}
 	

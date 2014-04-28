@@ -1,0 +1,7 @@
+package me.zwad3.pseudosockettest;
+
+import android.app.Application;
+
+public class MyApplication extends Application {
+
+}
