@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.os.Build;
 
 public class MainActivity extends Activity {
@@ -25,19 +26,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
 		
-		try {
-			PseudoSocketClient pss = new PseudoSocketClient(new URI("ws://192.168.2.151:5000"), "green-bunny", new MyCallback());
-			pss.connect();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			Log.d("PSS","Something bork");
-		}
 	}
 
 	@Override
@@ -48,6 +37,18 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	public void connect(View v) {
+		Log.d("PSS", "button clicked");
+		EditText entry = (EditText)findViewById(R.id.hostname);
+		try {
+			PseudoSocketClient pss = new PseudoSocketClient(new URI("ws://192.168.2.151:5000"), entry.getText().toString(), new MyCallback(this));
+			pss.connect();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.d("PSS","Something bork");
+		}
+	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -60,21 +61,5 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-
+	
 }

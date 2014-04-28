@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.zwad3.pseudosockettest"
     android:versionCode="1"
+    android:theme="@android:style/Theme.NoTitleBar"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -21,6 +22,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="me.zwad3.pseudosockettest.DataSender"
+            android:label="Data Sender">
+            
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" /> 

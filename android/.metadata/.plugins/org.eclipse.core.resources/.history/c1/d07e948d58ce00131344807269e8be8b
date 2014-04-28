@@ -1,0 +1,5 @@
+package me.zwad3.pseudosockettest;
+
+public class JoystickDrawer extends Thread {
+
+}

@@ -92,7 +92,7 @@ public class PseudoSocketClient extends WebSocketClient {
 	public void onError(Exception arg0) {
 		// TODO Auto-generated method stub
 		Log.d("PSS",arg0.toString());
-		
+		arg0.printStackTrace();
 	}
 
 	@Override
@@ -134,6 +134,13 @@ public class PseudoSocketClient extends WebSocketClient {
 				if (qdest.equals(this.host)) {
 					questions.get(tag).response(qdata);
 					questions.remove(tag);
+				}
+				break;
+			case "brk":
+				if (hasConnected) {
+					psc.onClose();
+				} else {
+					psc.onConnectionFailure();
 				}
 				break;
 			case "ask":

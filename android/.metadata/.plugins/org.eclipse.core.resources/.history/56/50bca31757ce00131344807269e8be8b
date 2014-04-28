@@ -1,0 +1,7 @@
+package me.zwad3.pseudosockettest;
+
+import android.view.View;
+
+public class InterfaceView extends View {
+
+}

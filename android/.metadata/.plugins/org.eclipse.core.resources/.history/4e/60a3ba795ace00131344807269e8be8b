@@ -1,0 +1,17 @@
+package me.zwad3.pseudosockettest;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class DataSender extends Activity {
+	
+	private InterfaceView view;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		view = new InterfaceView(this);
+		setContentView(view);
+		
+	}
+}
+
+

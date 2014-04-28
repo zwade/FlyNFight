@@ -44,6 +44,10 @@ init = function() {
 				//env.players[0].left+=msg[1]*Math.cos(msg[2]);
 				//env.players[0].top+=msg[1]*Math.sin(msg[2]);
 				//can.renderAll();
+			} if (msg[0] == "set") {
+				env.players[0].left = 860*parseFloat(msg[1]);
+				env.players[0].top = 640*parseFloat(msg[2]);
+				
 			}
 		}
 		PSC.onClose = function() {
