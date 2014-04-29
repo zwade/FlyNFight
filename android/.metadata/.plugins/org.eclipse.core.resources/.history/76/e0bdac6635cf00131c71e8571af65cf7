@@ -1,9 +1,10 @@
 package me.zwad3.pseudosockettest;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
-import com.zwad3.PseudoSocket.PseudoSocketClient;
+import com.zwad3.PseudoSocket.PseudoSocketCallback;
 
 public class MyApplication extends Application {
 	

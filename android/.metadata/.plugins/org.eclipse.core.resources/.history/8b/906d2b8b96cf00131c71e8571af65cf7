@@ -76,7 +76,7 @@ public class InterfaceView extends SurfaceView {
 					} else {
 						//register button click;
 					}
-				} 
+				} )
 			}
 			
 			int[] pos = new int[2];

@@ -2,7 +2,6 @@ package me.zwad3.pseudosockettest;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -30,7 +29,7 @@ public class DataSender extends Activity {
 	        public boolean onTouch(View v, MotionEvent event) {
 	        	view.onMotionEvent(v,event);
 	        	if (psc != null) {
-	        		psc.sendData("set "+(event.getX()/view.getWidth())+" "+(event.getY()/view.getHeight()));
+	        		psc.sendData("set "+event.getX()+" "+event.getY());
 	        	} else {
 	        		psc = ((MyApplication)that.getApplication()).getPSC();
 	        		Log.d("PSS","Fetching PSC");

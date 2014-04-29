@@ -21,7 +21,6 @@ public class InterfaceView extends SurfaceView {
 	
 	private int bX;
 	private int bY;
-	private int bP;
 	
 	public InterfaceView(Context context) {
 		super(context);
@@ -66,17 +65,11 @@ public class InterfaceView extends SurfaceView {
 		int x = 0;
 		int y = 0;
 		if (me != null) {
-			for (int i = 0; i < me.getPointerCount(); i++) {
-				if (me.getActionMasked() == me.ACTION_DOWN && me.getActionIndex() == i) {
-					if (me.getX(i) < getWidth()/2) {
-						bX = ((int)me.getX());
-						bY = ((int)me.getY());
-						
-						bP = me.getPointerId(i);
-					} else {
-						//register button click;
-					}
-				} 
+			if (me.getAction() == me.ACTION_DOWN) {
+				if (me.getX() < getWidth()/2) {
+					bX = ((int)me.getX());
+					bY = ((int)me.getY());
+				}
 			}
 			
 			int[] pos = new int[2];

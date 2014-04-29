@@ -30,7 +30,7 @@ public class DataSender extends Activity {
 	        public boolean onTouch(View v, MotionEvent event) {
 	        	view.onMotionEvent(v,event);
 	        	if (psc != null) {
-	        		psc.sendData("set "+(event.getX()/view.getWidth())+" "+(event.getY()/view.getHeight()));
+	        		psc.sendData("set "+event.getX()+" "+event.getY());
 	        	} else {
 	        		psc = ((MyApplication)that.getApplication()).getPSC();
 	        		Log.d("PSS","Fetching PSC");

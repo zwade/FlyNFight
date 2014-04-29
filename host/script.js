@@ -29,7 +29,6 @@ init = function() {
 	PSS.onConnect = function(PSC) {
 		console.log(PSC.UID+" opened");
 		PSC.onData = function(data) {
-			console.log(PSC.UID+" received "+data);
 			var msg = data.split(" ");
 			if (msg[0] == 'mov') {
 				console.log("Moved"+parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))+"left"+parseInt(msg[1],10)*Math.sin(parseInt(msg[2],10))+"up");
@@ -44,9 +43,10 @@ init = function() {
 				//env.players[0].left+=msg[1]*Math.cos(msg[2]);
 				//env.players[0].top+=msg[1]*Math.sin(msg[2]);
 				//can.renderAll();
-			} if (msg[0] == "set") {
+			} else if (msg[0] == "set") {
 				env.players[0].left = 860*parseFloat(msg[1]);
 				env.players[0].top = 640*parseFloat(msg[2]);
+				can.renderAll();
 				
 			}
 		}

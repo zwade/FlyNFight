@@ -24,10 +24,9 @@ public class MyCallback extends PseudoSocketCallback {
 			owner.sendData("woah data");
 		
 		}
-		((MyApplication)parent.getApplication()).registerPSC(owner);
 		Intent intent = new Intent(parent, DataSender.class);
 		parent.startActivity(intent);
-			
+		((MyApplication)parent.getApplication()).registerPSC(owner);	
 	
 	}
 	
