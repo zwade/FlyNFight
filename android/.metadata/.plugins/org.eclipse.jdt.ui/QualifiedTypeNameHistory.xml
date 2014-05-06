@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="java.util.Timer"/>
 <fullyQualifiedTypeName name="com.zwad3.PseudoSocket.PseudoSocketCallback"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.app.Activity"/>
@@ -20,4 +19,5 @@
 <fullyQualifiedTypeName name="android.view.Window"/>
 <fullyQualifiedTypeName name="android.widget.LinearLayout"/>
 <fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>
