@@ -3,14 +3,30 @@ var can;
 var env = {};
 var ws;
 var PSS;
+var MAXSCREEN = 2;
 
+selectScreen = function(scr) {
+	var screen = "hold-"+scr;
+	for (var i = 0; i < MAXSCREEN; i++) {
+		var tmpscr = "hold-"+i;
+		if (tmpscr == screen) {
+			$("#"+tmpscr).css("display","block");
+		} else {
+			$("#"+tmpscr).css("display","none");
+		}
+	}
+}
 
 $(window).load(function() {
+	$("#can-hold").css("display","none");
+
 	can = new fabric.Canvas("can");
 	can.setHeight(640);
 	can.setWidth(860);
 	
 	init();
+
+	selectScreen(0);
 })
 
 init = function() {
@@ -19,6 +35,8 @@ init = function() {
 	env.players[0].hasControls = false;
 	can.add(env.players[0]);
 	can.renderAll();
+
+	return
 
 	PSS = new PSServer("ws://localhost:5000");
 

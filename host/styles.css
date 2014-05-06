@@ -1,0 +1,22 @@
+body, html {
+	min-height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+#outer-menu {
+	position: relative;
+	margin: auto auto;
+	margin-top: 150px;
+	width: 100%;
+	height: 100%;
+	background: #333;
+}
+
+#menu-hold {
+	width: 100%;
+	height: 100%;
+}
+
