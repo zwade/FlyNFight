@@ -3,7 +3,8 @@ var can;
 var env = {};
 var ws;
 var PSS;
-var MAXSCREEN = 2;
+var MAXSCREEN = 3;
+var screen = 0;
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;
@@ -24,10 +25,23 @@ $(window).load(function() {
 	can.setHeight(640);
 	can.setWidth(860);
 	
+	console.log("initing");
 	init();
 
-	selectScreen(0);
+	selectScreen(screen);
 })
+
+refreshList = function() {
+	for (i = 0; i < 4; i++) {
+		if (i < Object.keys(PSS.clients).length) {
+			$("#join-"+i).addClass("active");
+			$("#join-"+i).html(Object.keys(PSS.clients)[i])
+		} else {
+			$("#join-"+i).removeClass("active");
+			$("#join-"+i).html(""); 
+		}
+	}
+}
 
 init = function() {
 	env.players = [];
@@ -36,7 +50,6 @@ init = function() {
 	can.add(env.players[0]);
 	can.renderAll();
 
-	return
 
 	PSS = new PSServer("ws://localhost:5000");
 
@@ -45,6 +58,10 @@ init = function() {
 	}
 
 	PSS.onConnect = function(PSC) {
+		if (screen == 0) {
+			screen = 1;
+			selectScreen(screen);
+		}
 		console.log(PSC.UID+" opened");
 		PSC.onData = function(data) {
 			var msg = data.split(" ");
@@ -70,11 +87,13 @@ init = function() {
 		}
 		PSC.onClose = function() {
 			console.log(PSC.UID+" disconnected");
+			refreshList();
 		}
 		PSC.onQuestion = function(q,cb) {
 			console.log(q);
 			cb("sure");
 		}
+		refreshList();
 	}
 
 
