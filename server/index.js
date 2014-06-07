@@ -61,6 +61,8 @@ wss.on('connection', function(ws) {
 			}
 			delete hosts[ws.UID];
 		} else if (ws.isHost===false) {
+			var ind = hosts[ws.host].clients.indexOf(ws);
+			delete hosts[ws.host].clients[ind];
 			delete clients[ws.UID];
 		}
 	});

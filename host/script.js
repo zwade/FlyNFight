@@ -4,7 +4,7 @@ var env = {};
 var ws;
 var PSS;
 var MAXSCREEN = 3;
-var screen = 0;
+var scr = 0;
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;
@@ -25,10 +25,11 @@ $(window).load(function() {
 	can.setHeight(640);
 	can.setWidth(860);
 	
+	console.log(scr);
+	selectScreen(scr);
 	console.log("initing");
 	init();
 
-	selectScreen(screen);
 })
 
 refreshList = function() {
@@ -58,11 +59,12 @@ init = function() {
 	}
 
 	PSS.onConnect = function(PSC) {
-		if (screen == 0) {
-			screen = 1;
-			selectScreen(screen);
+		if (scr == 0) {
+			scr = 1;
+			selectScreen(scr);
 		}
 		console.log(PSC.UID+" opened");
+		PSC.send("dataSelect");
 		PSC.onData = function(data) {
 			var msg = data.split(" ");
 			if (msg[0] == 'mov') {

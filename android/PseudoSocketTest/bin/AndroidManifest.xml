@@ -29,6 +29,11 @@
             android:label="Data Sender">
             
         </activity>
+        <activity
+        	android:name="me.zwad3.pseudosockettest.PromptActivity"
+        	android:label="Prompt Activity">
+        	    
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" /> 
 
