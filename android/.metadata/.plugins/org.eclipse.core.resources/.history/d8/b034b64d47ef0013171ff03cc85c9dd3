@@ -34,12 +34,9 @@ public class MyCallback extends PseudoSocketCallback {
 	
 	@Override
 	public void onData(String msg) {
+		Log.d("fnf",""+msg.equals("dataSelect"));
 		if (msg.equals("dataSelect")) {
 			Intent intent = new Intent(parent, PromptActivity.class);
-			parent.startActivity(intent);
-		}
-		if (msg.equals("startGame")) {
-			Intent intent = new Intent(parent, DataSender.class);
 			parent.startActivity(intent);
 		}
 	}

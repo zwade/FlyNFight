@@ -33,14 +33,33 @@ $(window).load(function() {
 })
 
 refreshList = function() {
+	if (scr != 1) {
+		return;
+	}	
+	var shouldStart = true
+	var keys = Object.keys(PSS.clients);
+	if (keys.length == 0) {
+		scr = 0; 
+		selectScreen(scr);
+		return;
+	}
 	for (i = 0; i < 4; i++) {
-		if (i < Object.keys(PSS.clients).length) {
+		if (i < keys.length) {
+			var PSC = PSS.clients[keys[i]];
 			$("#join-"+i).addClass("active");
-			$("#join-"+i).html(Object.keys(PSS.clients)[i])
+			$("#join-"+i).html(keys[i]+"<br>Ship: "+PSC.ship+"<br>Name: "+PSC.name)
+			if (!PSC.start) {
+				shouldStart = false;
+			}
 		} else {
 			$("#join-"+i).removeClass("active");
 			$("#join-"+i).html(""); 
 		}
+	}
+	if (shouldStart ) { 
+		scr = 2;
+		selectScreen(scr);
+		PSS.broadcast("startGame");
 	}
 }
 
@@ -64,9 +83,29 @@ init = function() {
 			selectScreen(scr);
 		}
 		console.log(PSC.UID+" opened");
+		
+		PSC.ship = null;
+		PSC.name = null;
+		PSC.start = false;
+
 		PSC.send("dataSelect");
 		PSC.onData = function(data) {
-			var msg = data.split(" ");
+			var obj = parseKVP(data);
+			
+			if (obj.ship) { 
+				PSC.ship = obj.ship;
+			}
+
+			if (obj.name) {
+				PSC.name = obj.name;
+			}
+
+			if (obj.start) {
+				if (obj.start == "true") {
+					PSC.start = true;
+				}
+			}
+			/**
 			if (msg[0] == 'mov') {
 				console.log("Moved"+parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))+"left"+parseInt(msg[1],10)*Math.sin(parseInt(msg[2],10))+"up");
 				env.players[0].animate('left', '+='+(parseInt(msg[1],10)*Math.cos(parseInt(msg[2],10))) , {
@@ -85,7 +124,10 @@ init = function() {
 				env.players[0].top = 640*parseFloat(msg[2]);
 				can.renderAll();
 				
-			}
+			}**/
+
+			refreshList();
+
 		}
 		PSC.onClose = function() {
 			console.log(PSC.UID+" disconnected");
@@ -95,9 +137,20 @@ init = function() {
 			console.log(q);
 			cb("sure");
 		}
+		console.log(PSS.clients);
+		console.log(Object.keys(PSS.clients));
 		refreshList();
 	}
 
 
 }
-    
+  
+var parseKVP = function(data) {
+	var ret = {};
+	var spl = data.split(";");
+	for (var i in spl) {
+		var kvp = spl[i].split("=");
+		ret[kvp[0]] = kvp[1];
+	}
+	return ret;
+}

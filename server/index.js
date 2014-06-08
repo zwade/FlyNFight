@@ -60,9 +60,11 @@ wss.on('connection', function(ws) {
 				hosts[ws.UID].clients[i].send("brk "+ws.UID+" "+hosts[ws.UID].clients[i].UID);
 			}
 			delete hosts[ws.UID];
-		} else if (ws.isHost===false) {
+		} else if (ws.isHost===false && hosts[ws.host]) {
 			var ind = hosts[ws.host].clients.indexOf(ws);
-			delete hosts[ws.host].clients[ind];
+			if (hosts[ws.host].clients[ind]) {
+				delete hosts[ws.host].clients[ind];
+			}
 			delete clients[ws.UID];
 		}
 	});

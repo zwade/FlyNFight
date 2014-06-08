@@ -76,13 +76,6 @@ public class PromptActivity extends Activity {
 		
 	}
 	
-	public void startGame(View v) {
-		Log.d("fnf","button pressed");
-		if (psc != null) {
-			psc.sendData("start=true");
-		}
-	}
-	
 	/**public void updateStatus(View v) {
 		if (psc != null) {
 			Spinner spinner = (Spinner) findViewById(R.id.ship_spinner);
