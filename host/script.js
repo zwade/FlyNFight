@@ -4,7 +4,7 @@ var env = {};
 var ws;
 var PSS;
 var MAXSCREEN = 3;
-var scr = 0;
+var scr = 2;
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;
@@ -19,8 +19,6 @@ selectScreen = function(scr) {
 }
 
 $(window).load(function() {
-	$("#can-hold").css("display","none");
-
 	can = new fabric.Canvas("can");
 	can.setHeight(640);
 	can.setWidth(860);
@@ -68,7 +66,16 @@ init = function() {
 	env.players[0] = new fabric.Circle({radius:40, fill: "#f00", selectable: false})
 	env.players[0].hasControls = false;
 	can.add(env.players[0]);
+	fabric.Image.fromURL("public/ship.png", function(img) {env.ship = new entity(img,can); env.ship.addToCanvas()})
 	can.renderAll();
+	setInterval(function() {
+		if (!env.ship) {
+			return
+		}
+		env.ship.update()
+		env.ship.render()
+		can.renderAll()
+	},10)
 
 
 	PSS = new PSServer("ws://localhost:5000");

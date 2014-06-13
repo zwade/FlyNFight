@@ -1,7 +1,0 @@
-package com.zwad3.PseudoSocket;
-
-public class Question {
-	public String ask() {
-		return "who are you?";
-	}
-}

@@ -1,5 +1,0 @@
-package com.zwad3.PseudoSocket;
-
-public abstract class PseudoSocketCallback {
-
-}

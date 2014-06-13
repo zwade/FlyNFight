@@ -12,6 +12,9 @@ body {
 	border: 1px solid white;
 	position: absolute;
 }
+.hold {
+	height: 100%;
+}
 
 #box-parent {
 	width:454px;

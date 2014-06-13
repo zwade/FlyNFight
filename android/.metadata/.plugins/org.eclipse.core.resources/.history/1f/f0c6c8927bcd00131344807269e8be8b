@@ -1,7 +1,0 @@
-package com.zwad3.PseudoSocket;
-
-import org.java_websocket.server.WebSocketClient;
-
-public class PseudoSocketClient extends WebSocketClient {
-
-}

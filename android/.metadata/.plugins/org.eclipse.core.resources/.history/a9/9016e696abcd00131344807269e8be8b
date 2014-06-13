@@ -1,7 +1,0 @@
-package me.zwad3.pseudosockettest;
-
-import com.zwad3.PseudoSocket.Question;
-
-public class MyQuestion extends Question {
-
-}
