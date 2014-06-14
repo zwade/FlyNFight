@@ -4,7 +4,7 @@ var env = {};
 var ws;
 var PSS;
 var MAXSCREEN = 3;
-var scr = 2;
+var scr = 0;
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;

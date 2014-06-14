@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,11 +19,9 @@ public class InterfaceView extends SurfaceView {
 	
 	private MotionEvent me;
 	
-	private int lXi;
-	private int lXf;
-	private int lYi;
-	private int lYf;
-	private int lP;
+	private int bX;
+	private int bY;
+	private int bP;
 	
 	public InterfaceView(Context context) {
 		super(context);
@@ -72,18 +69,12 @@ public class InterfaceView extends SurfaceView {
 			for (int i = 0; i < me.getPointerCount(); i++) {
 				if (me.getActionMasked() == me.ACTION_DOWN && me.getActionIndex() == i) {
 					if (me.getX(i) < getWidth()/2) {
-						lXf = ((int)me.getX());
-						lYf = ((int)me.getY());
+						bX = ((int)me.getX());
+						bY = ((int)me.getY());
 						
-						lP = me.getPointerId(i);
-						Log.d("FnF","pointer hold");
+						bP = me.getPointerId(i);
 					} else {
-						lXi = ((int)me.getX());
-						lYi = ((int)me.getY());
-						
-						Log.d("FnF","pointer down");
-						
-						lP = me.getPointerId(i);
+						//register button click;
 					}
 				} 
 			}
