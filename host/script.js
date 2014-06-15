@@ -82,7 +82,7 @@ init = function() {
 	},10)
 
 
-	PSS = new PSServer("ws://localhost:5000");
+	PSS = new PSServer("ws://pilotdcrelay.herokuapp.com");
 
 	PSS.onName = function(name) {
 		$("#uid").text(name);

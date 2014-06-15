@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 		Log.d("PSS", "button clicked");
 		EditText entry = (EditText)findViewById(R.id.hostname);
 		try {
-			PseudoSocketClient pss = new PseudoSocketClient(new URI("ws://pilotdcrelay.herokuapp.com"), entry.getText().toString(), new MyCallback(this));
+			PseudoSocketClient pss = new PseudoSocketClient(new URI("ws://192.168.2.151:5000"), entry.getText().toString(), new MyCallback(this));
 			pss.connect();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
