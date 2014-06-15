@@ -1,0 +1,39 @@
+package me.zwad3.pseudosockettest;
+
+public class MotionData {
+	public int X_i;
+	public int Y_i;
+	
+	public long T_i;
+	
+	public boolean hit;
+	
+	public MotionData(int x,int y,long t) {
+		X_i = x;
+		Y_i = y;
+		T_i = t;
+		hit = true;
+	}
+	
+	public long getTime() {
+		return T_i;
+	}
+	
+	public int getX() {
+		return X_i;
+	}
+	
+	public int getY() {
+		return Y_i;
+	}
+	
+	public boolean getHit() {
+		return hit;
+	}
+	
+	public void setHit(boolean h) {
+		hit = h;
+	}
+	
+	
+}

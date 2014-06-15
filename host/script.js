@@ -66,7 +66,11 @@ init = function() {
 	env.players[0] = new fabric.Circle({radius:40, fill: "#f00", selectable: false})
 	env.players[0].hasControls = false;
 	can.add(env.players[0]);
-	fabric.Image.fromURL("public/ship.png", function(img) {env.ship = new entity(img,can); env.ship.addToCanvas()})
+	fabric.Image.fromURL("public/ship.png", function(img) {
+		env.ship = new entity(img,can); 
+		env.ship.addToCanvas()
+		env.ship.cartesian = false;
+	})
 	can.renderAll();
 	setInterval(function() {
 		if (!env.ship) {
@@ -110,6 +114,18 @@ init = function() {
 			if (obj.start) {
 				if (obj.start == "true") {
 					PSC.start = true;
+				}
+			}
+
+			if (obj.ang) {
+				if (env.ship) {
+					env.ship.a = obj.ang*180/Math.PI+90;
+				}
+			}
+			
+			if (obj.pow) {
+				if (env.ship) {
+					env.ship.vr = 150*obj.pow;
 				}
 			}
 			/**

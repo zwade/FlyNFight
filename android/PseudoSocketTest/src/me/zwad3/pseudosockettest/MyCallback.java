@@ -40,6 +40,7 @@ public class MyCallback extends PseudoSocketCallback {
 		}
 		if (msg.equals("startGame")) {
 			Intent intent = new Intent(parent, DataSender.class);
+			Log.d("FnF", "Starting DataSender");
 			parent.startActivity(intent);
 		}
 	}
