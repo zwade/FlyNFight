@@ -59,7 +59,7 @@ public class DataSender extends Activity {
 				}
 			}
 			
-		}, 0, 100);
+		}, 0, 50);
 		
 		setContentView(ll);
 		
