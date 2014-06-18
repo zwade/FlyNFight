@@ -1,6 +1,5 @@
 package me.zwad3.pseudosockettest;
 
-import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
@@ -9,7 +8,6 @@ import com.zwad3.PseudoSocket.PseudoSocketClient;
 public class MyApplication extends Application {
 	
 	private PseudoSocketClient psc;
-	private Activity active;
 	
 	@Override
 	public void onCreate() {
@@ -25,17 +23,4 @@ public class MyApplication extends Application {
 		return this.psc;
 	}
 	
-	public void startActivity(Activity a) {
-		if (active != null) {
-			active.finish();
-		}
-		this.active = a;
-	}
-	
-	public void killLimited() {
-		if (active != null) {
-			active.finish();
-			active = null;
-		}
-	}
 }

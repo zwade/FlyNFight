@@ -27,9 +27,10 @@ public class MyApplication extends Application {
 	
 	public void startActivity(Activity a) {
 		if (active != null) {
+			Log.d("FnF","Killing "+active.toString());
 			active.finish();
+			this.active = a;
 		}
-		this.active = a;
 	}
 	
 	public void killLimited() {

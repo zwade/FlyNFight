@@ -10,6 +10,7 @@ public class MyApplication extends Application {
 	
 	private PseudoSocketClient psc;
 	private Activity active;
+	private long UID;
 	
 	@Override
 	public void onCreate() {
@@ -25,15 +26,19 @@ public class MyApplication extends Application {
 		return this.psc;
 	}
 	
-	public void startActivity(Activity a) {
-		if (active != null) {
+	public void startActivity(Activity a, long UID) {
+		Log.d("FnF", "Starting activity with UID "+UID);
+		if (active != null && UID != this.UID) {
+			Log.d("FnF","Killing "+active.toString());
 			active.finish();
 		}
 		this.active = a;
+		this.UID = UID;
 	}
 	
 	public void killLimited() {
 		if (active != null) {
+			Log.d("FnF","Killing "+active.toString());
 			active.finish();
 			active = null;
 		}

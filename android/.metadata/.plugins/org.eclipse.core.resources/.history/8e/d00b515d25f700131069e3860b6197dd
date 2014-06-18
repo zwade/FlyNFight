@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class PromptActivity extends LimitedActivity {
+public class PromptActivity extends Activity {
 	
 	private PseudoSocketClient psc;
 	

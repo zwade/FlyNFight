@@ -1,0 +1,14 @@
+package me.zwad3.pseudosockettest;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class LimitedActivity extends Activity {
+	
+	Activity active;
+	
+	protected void onCreate(Bundle sbi) {
+		super.onCreate(sbi);
+		active = this;
+	}
+}

@@ -28,8 +28,8 @@ public class MyApplication extends Application {
 	public void startActivity(Activity a) {
 		if (active != null) {
 			active.finish();
+			this.active = a;
 		}
-		this.active = a;
 	}
 	
 	public void killLimited() {

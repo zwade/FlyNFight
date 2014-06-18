@@ -46,8 +46,8 @@ public class MyCallback extends PseudoSocketCallback {
 	}
 	
 	public void onClose() {
-		Log.d("FnF","onClose");
-		((MyApplication)parent.getApplication()).killLimited();
+		Log.d("PSS","onClose");
+		((MyApplication)getApplication()).killLimited();
 	}
 	
 }

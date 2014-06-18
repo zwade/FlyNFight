@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import com.zwad3.PseudoSocket.PseudoSocketClient;
 
-public class DataSender extends LimitedActivity {
+public class DataSender extends Activity {
 	
 	private InterfaceView view;
 	private LinearLayout ll;
