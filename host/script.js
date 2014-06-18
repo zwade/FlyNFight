@@ -5,6 +5,7 @@ var ws;
 var PSS;
 var MAXSCREEN = 3;
 var scr = 0;
+var thresh = 5;
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;
@@ -119,7 +120,37 @@ init = function() {
 
 			if (obj.ang) {
 				if (env.ship) {
-					env.ship.a = obj.ang*180/Math.PI+90;
+					//env.ship.a = obj.ang*180/Math.PI+90;
+					var a1 = env.ship.a;
+					var a2 = obj.ang*180/Math.PI+90;
+
+					while (a1 < 0) {
+						a1+=360;
+					}
+					while (a2 < 0) {
+						a2+=360;
+					}
+					while (a2 < a1) {
+						a2 += 360;
+					}
+					while (a2 - a1 > 360) {
+						a2 -= 360;
+					}
+
+					if (a2-a1 > 180) {
+						env.ship.vt = -80
+					} else {
+						env.ship.vt = 80;
+					}
+
+					if (Math.abs(a2-a1) < thresh) {
+						env.ship.vt = 0;
+					}
+
+					console.log(a1)
+					console.log(a2)
+					console.log(a2-a1);
+					console.log("---------")
 				}
 			}
 			
