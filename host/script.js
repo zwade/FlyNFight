@@ -5,7 +5,7 @@ var ws;
 var PSS;
 var MAXSCREEN = 3;
 var scr = 0;
-var thresh = 5;
+var thresh = 10;
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;
@@ -138,25 +138,43 @@ init = function() {
 					}
 
 					if (a2-a1 > 180) {
-						env.ship.vt = -80
+						if(env.ship.vt>-120) {
+							env.ship.vt -= 40;
+						}
 					} else {
-						env.ship.vt = 80;
+						if(env.ship.vt<120) {
+							env.ship.vt += 40;
+						}
 					}
 
 					if (Math.abs(a2-a1) < thresh) {
 						env.ship.vt = 0;
 					}
-
+					else if (Math.abs(a2-a1) < thresh*2 ) {
+						env.ship.vt/=2;
+					}
 					console.log(a1)
 					console.log(a2)
 					console.log(a2-a1);
 					console.log("---------")
 				}
 			}
-			
+			var ar=0;
 			if (obj.pow) {
 				if (env.ship) {
-					env.ship.vr = 150*obj.pow;
+					var target = 150*obj.pow;            //well this code is pretty cruddy. but hey, it gives a small sense of acceleration, 
+					if (env.ship.vr-target > target/2) { //which is all its really meant to do
+						var j = -(target/5);         //so call it a win? 
+					}
+					else {
+						var j = (target/10);
+					}
+					ar+=j;
+					console.log(j, ar, target, env.ship.vr);
+					env.ship.vr += ar;
+					if(target<=2) {                      //pls
+						env.ship.vr=0;
+					}
 				}
 			}
 			/**
