@@ -6,6 +6,8 @@ var PSS;
 var MAXSCREEN = 3;
 var scr = 0;
 var thresh = 10;
+var TURNCAP = 180; //arbitrary
+var VELCAP = 200; //arbitrary
 
 selectScreen = function(scr) {
 	var screen = "hold-"+scr;
@@ -155,7 +157,7 @@ init = function() {
 						else if ( Math.abs(a2-a1) < thresh*4 ) {
 							//env.ship.vt /= 2;
 							if(env.ship.vt!=0) {
-								env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+								env.ship.at = -(env.ship.vt/Math.abs(env.ship.vt))*env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
 							}
 						} 
 						else {
@@ -171,11 +173,19 @@ init = function() {
 						}
 						else if ( Math.abs(a2-a1) < thresh*4 ) {
 							//env.ship.vt /= 2;
-							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
-						} 
+							if(env.ship.vt!=0) {
+								env.ship.at = -(env.ship.vt/Math.abs(env.ship.vt))*env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+							}
+						}						
 						else {
 							env.ship.at = 70;
 						}
+					}
+					if(env.ship.vt>TURNCAP) {
+						env.ship.vt=TURNCAP;
+					}
+					else if(env.ship.vt<-TURNCAP){
+						env.ship.vt=-TURNCAP;
 					}
 					console.log("a1, a2, vt, at", a1, a2, env.ship.vt, env.ship.at);
 
@@ -196,6 +206,9 @@ init = function() {
 					env.ship.vr += ar;
 					if(target<=5) {                      //pls
 						env.ship.vr=0;
+					}
+					else if (env.ship.vr>VELCAP) {
+						env.ship.vr=VELCAP;
 					}
 				}
 			}
