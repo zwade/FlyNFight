@@ -145,18 +145,39 @@ init = function() {
 					}
 					*/
 					if (a2-a1 > 180) {
-						if (Math.abs(a2-a1) < thresh) {
-							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
-						} else {
+						/*if (Math.abs(a2-a1) < thresh) {
+							env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+						}*/
+						if ( Math.abs(a2-a1) < thresh ) {
+							env.ship.vt = 0;
+							env.ship.at = 0;
+						}
+						else if ( Math.abs(a2-a1) < thresh*4 ) {
+							//env.ship.vt /= 2;
+							if(env.ship.vt!=0) {
+								env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+							}
+						} 
+						else {
 							env.ship.at = -70;
 						}
 					} else {
-						if (Math.abs(a2-a1) < thresh) {
-							env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
-						} else {
+						/*if (Math.abs(a2-a1) < thresh) {
+							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+						}*/
+						if ( Math.abs(a2-a1) < thresh ) {
+							env.ship.vt = 0;
+							env.ship.at = 0;
+						}
+						else if ( Math.abs(a2-a1) < thresh*4 ) {
+							//env.ship.vt /= 2;
+							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+						} 
+						else {
 							env.ship.at = 70;
 						}
 					}
+					console.log("a1, a2, vt, at", a1, a2, env.ship.vt, env.ship.at);
 
 				}
 			}
@@ -171,7 +192,7 @@ init = function() {
 						var j = (target/10);
 					}
 					ar+=j;
-					console.log(j, ar, target, env.ship.vr);
+					console.log("j ar target vr", j, ar, target, env.ship.vr);
 					env.ship.vr += ar;
 					if(target<=5) {                      //pls
 						env.ship.vr=0;
