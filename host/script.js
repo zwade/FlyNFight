@@ -137,7 +137,13 @@ init = function() {
 						a2 -= 360;
 					}
 
-					if (a2-a1 > 180) {
+					if (Math.abs(a2-a1) < thresh) {
+						env.ship.vt = 0;
+					}
+					else if (Math.abs(a2-a1) < thresh*2 ) {
+						env.ship.vt/=2;
+					}
+					else if (a2-a1 > 180) {
 						if(env.ship.vt>-120) {
 							env.ship.vt -= 40;
 						}
@@ -147,12 +153,7 @@ init = function() {
 						}
 					}
 
-					if (Math.abs(a2-a1) < thresh) {
-						env.ship.vt = 0;
-					}
-					else if (Math.abs(a2-a1) < thresh*2 ) {
-						env.ship.vt/=2;
-					}
+					
 					console.log(a1)
 					console.log(a2)
 					console.log(a2-a1);
@@ -172,7 +173,7 @@ init = function() {
 					ar+=j;
 					console.log(j, ar, target, env.ship.vr);
 					env.ship.vr += ar;
-					if(target<=2) {                      //pls
+					if(target<=5) {                      //pls
 						env.ship.vr=0;
 					}
 				}
