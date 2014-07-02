@@ -146,15 +146,15 @@ init = function() {
 					*/
 					if (a2-a1 > 180) {
 						if (Math.abs(a2-a1) < thresh) {
-							env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
 						} else {
 							env.ship.at = -70;
 						}
 					} else {
 						if (Math.abs(a2-a1) < thresh) {
-							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
+							env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
 						} else {
-							env.ship.vt = 70;
+							env.ship.at = 70;
 						}
 					}
 
