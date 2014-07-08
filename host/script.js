@@ -67,7 +67,7 @@ refreshList = function() {
 
 init = function() {
 	env.players = {};
-	env.ships = [];
+	env.ships = {};
 	//env.players[0] = new fabric.Circle({radius:40, fill: "#f00", selectable: false})
 	//env.players[0].hasControls = false;
 	//can.add(env.players[0]);
@@ -78,11 +78,11 @@ init = function() {
 	//})
 	can.renderAll();
 	setInterval(function() {
-		if (env.ships.length==0) {
+		if (Object.keys(env.ships).length === 0) {
 			//console.log("pls")
 			return;
 		}
-		for(i=0; i<env.ships.length; i++)
+		for(i in env.ships)
 		{
 			env.ships[i].update();
 			env.ships[i].render();
@@ -104,17 +104,12 @@ init = function() {
 		}
 		console.log(PSC.UID+" opened");
 		
-		var t=env.players.length;
-		if(typeof t === 'undefined')
-		{
-			t=0;
-		}
-		env.players[PSC.UID]=t; //not sure if needs to be 2 lines...
+		env.players[PSC.UID]=null; //not sure if needs to be 2 lines...
 		fabric.Image.fromURL("public/ship.png", function(img) {
-			env.ships[t] = new entity(img,can); 
-			console.log(env.ships[t], t, "_------------");
-			env.ships[t].addToCanvas()
-			env.ships[t].cartesian = false;
+			env.ships[PSC.UID] = new entity(img,can); 
+			console.log(env.ships[PSC.UID], PSC.UID, "_------------");
+			env.ships[PSC.UID].addToCanvas()
+			env.ships[PSC.UID].cartesian = false;
 		})
 		PSC.ship = null;
 		PSC.name = null;
@@ -139,11 +134,10 @@ init = function() {
 			}
 
 			if (obj.ang) {
-				if (env.ships[t]) {
+				if (env.ships[PSC.UID]) {
 					//env.ship.a = obj.ang*180/Math.PI+90;
-					var a1 = env.ships[t].a;
+					var a1 = env.ships[PSC.UID].a;
 					var a2 = obj.ang*180/Math.PI+90;
-					var ship = env.players[PSC.UID];
 
 					while (a1 < 0) {
 						a1+=360;
@@ -170,64 +164,64 @@ init = function() {
 							env.ship.at = env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
 						}*/
 						if ( Math.abs(a2-a1) < thresh ) {
-							env.ships[ship].vt = 0;
-							env.ships[ship].at = 0;
+							env.ships[PSC.UID].vt = 0;
+							env.ships[PSC.UID].at = 0;
 						}
 						else if ( Math.abs(a2-a1) < thresh*4 ) {
 							//env.ship.vt /= 2;
-							if(env.ships[ship].vt!=0) {
-								env.ships[ship].at = -(env.ships[ship].vt/Math.abs(env.ships[ship].vt))*env.ships[ship].vt*env.ships[ship].vt/(2*Math.abs(a2-a1))
+							if(env.ships[PSC.UID].vt!=0) {
+								env.ships[PSC.UID].at = -(env.ships[PSC.UID].vt/Math.abs(env.ships[PSC.UID].vt))*env.ships[PSC.UID].vt*env.ships[PSC.UID].vt/(2*Math.abs(a2-a1))
 							}
 						} 
 						else {
-							env.ships[ship].at = -turnaccel;
+							env.ships[PSC.UID].at = -turnaccel;
 						}
 					} else {
 						/*if (Math.abs(a2-a1) < thresh) {
 							env.ship.at = -env.ship.vt*env.ship.vt/(2*Math.abs(a2-a1))
 						}*/
 						if ( Math.abs(a2-a1) < thresh ) {
-							env.ships[ship].vt = 0;
-							env.ships[ship].at = 0;
+							env.ships[PSC.UID].vt = 0;
+							env.ships[PSC.UID].at = 0;
 						}
 						else if ( Math.abs(a2-a1) < thresh*4 ) {
 							//env.ship.vt /= 2;
-							if(env.ships[ship].vt!=0) {
-								env.ships[ship].at = -(env.ships[ship].vt/Math.abs(env.ships[ship].vt))*env.ships[ship].vt*env.ships[ship].vt/(2*Math.abs(a2-a1))
+							if(env.ships[PSC.UID].vt!=0) {
+								env.ships[PSC.UID].at = -(env.ships[PSC.UID].vt/Math.abs(env.ships[PSC.UID].vt))*env.ships[PSC.UID].vt*env.ships[PSC.UID].vt/(2*Math.abs(a2-a1))
 							}
 						}						
 						else {
-							env.ships[ship].at = turnaccel;
+							env.ships[PSC.UID].at = turnaccel;
 						}
 					}
-					if(env.ships[ship].vt>TURNCAP) {
-						env.ships[ship].vt=TURNCAP;
+					if(env.ships[PSC.UID].vt>TURNCAP) {
+						env.ships[PSC.UID].vt=TURNCAP;
 					}
-					else if(env.ships[ship].vt<-TURNCAP){
-						env.ships[ship].vt=-TURNCAP;
+					else if(env.ships[PSC.UID].vt<-TURNCAP){
+						env.ships[PSC.UID].vt=-TURNCAP;
 					}
-					console.log("a1, a2, vt, at", a1, a2, env.ships[ship].vt, env.ships[ship].at);
+					//console.log("a1, a2, vt, at", a1, a2, env.ships[PSC.UID].vt, env.ships[PSC.UID].at);
 
 				}
 			}
 			var ar=0;
 			if (obj.pow) {
-				if (env.ships[ship]) {
+				if (env.ships[PSC.UID]) {
 					var target = 150*obj.pow;            //well this code is pretty cruddy. but hey, it gives a small sense of acceleration, 
-					if (env.ships[ship].vr-target > target/2) { //which is all its really meant to do
+					if (env.ships[PSC.UID].vr-target > target/2) { //which is all its really meant to do
 						var j = -(target/5);         //so call it a win? 
 					}
 					else {
 						var j = (target/10);
 					}
 					ar+=j;
-					console.log("j ar target vr", j, ar, target, env.ships[ship].vr);
-					env.ships[ship].vr += ar;
+					//console.log("j ar target vr", j, ar, target, env.ships[PSC.UID].vr);
+					env.ships[PSC.UID].vr += ar;
 					if(target<=5) {                      //pls
-						env.ships[ship].vr=0;
+						env.ships[PSC.UID].vr=0;
 					}
-					else if (env.ships[ship].vr>VELCAP) {
-						env.ships[ship].vr=VELCAP;
+					else if (env.ships[PSC.UID].vr>VELCAP) {
+						env.ships[PSC.UID].vr=VELCAP;
 					}
 				}
 			}
