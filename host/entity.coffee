@@ -36,6 +36,9 @@ entity = (img,can,args) ->
 
 entity::getImage = () ->
 	this.img
+
+entity::setImage = (img) ->
+	this.img = img
 	
 entity::addToCanvas = () ->
 	if !this._inCan

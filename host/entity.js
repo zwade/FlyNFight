@@ -34,6 +34,10 @@
     return this.img;
   };
 
+  entity.prototype.setImage = function(img) {
+    return this.img = img;
+  };
+
   entity.prototype.addToCanvas = function() {
     if (!this._inCan) {
       can.add(this.img);
